@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  body {
+    @apply bg-white text-secondary-900 dark:bg-secondary-900 dark:text-secondary-50;
+  }
+
+  * {
+    @apply border-primary-200 dark:border-secondary-700;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-glass;
+  }
+
+  .glass-button {
+    @apply bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-300;
+  }
+
+  .gradient-bg {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-primary-dynamic {
+    color: var(--color-primary);
+  }
+
+  .bg-primary-dynamic {
+    background-color: var(--color-primary);
+  }
+
+  .border-primary-dynamic {
+    border-color: var(--color-primary);
+  }
+}
