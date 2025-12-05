@@ -31,6 +31,7 @@ const HomePage = () => {
     const fetchMarketingContent = async () => {
       try {
         const response = await api.get('/marketing');
+        console.log('Marketing data received:', response.data.data);
         setMarketingContent(response.data.data);
       } catch (error) {
         console.error('Erreur lors du chargement du contenu marketing:', error);

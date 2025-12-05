@@ -21,26 +21,43 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem('authToken');
     const storedUser = localStorage.getItem('user');
 
-    if (token && storedUser) {
+    // Nettoyer les données corrompues au démarrage
+    if (storedUser === 'undefined' || storedUser === null) {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('user');
+      setLoading(false);
+      return;
+    }
+
+    if (token && storedUser && storedUser !== 'undefined') {
       try {
-        // Décoder le token pour récupérer les données à jour (incluant originalRole)
-        const decoded = JSON.parse(atob(token.split('.')[1]));
-        const userData = JSON.parse(storedUser);
+        // Vérifier si c'est un token mock (pas un vrai JWT)
+        if (token.startsWith('mock-jwt-token-')) {
+          // Pour les tokens mock, utiliser directement les données stockées
+          const userData = JSON.parse(storedUser);
+          setUser(userData);
+        } else {
+          // Décoder le token JWT réel pour récupérer les données à jour
+          const decoded = JSON.parse(atob(token.split('.')[1]));
+          const userData = JSON.parse(storedUser);
 
-        // Fusionner les données du token avec celles stockées localement
-        const mergedUser = {
-          ...userData,
-          ...decoded,
-          // Conserver originalRole du token
-          originalRole: decoded.originalRole
-        };
+          // Fusionner les données du token avec celles stockées localement
+          const mergedUser = {
+            ...userData,
+            ...decoded,
+            // Conserver originalRole du token
+            originalRole: decoded.originalRole
+          };
 
-        setUser(mergedUser);
-        // Mettre à jour le localStorage avec les données fusionnées
-        localStorage.setItem('user', JSON.stringify(mergedUser));
+          setUser(mergedUser);
+          // Mettre à jour le localStorage avec les données fusionnées
+          localStorage.setItem('user', JSON.stringify(mergedUser));
+        }
       } catch (error) {
         console.error('Erreur lors du décodage du token:', error);
-        setUser(JSON.parse(storedUser));
+        // Nettoyer les données corrompues
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('user');
       }
     }
 

@@ -1,0 +1,349 @@
+{
+  "marketing": {
+    "hero": [
+      {
+        "id": "hero-1",
+        "title": "Révolutionnez la Gestion de vos Salaires",
+        "description": "Solution digitale premium pour entreprises modernes. Gérez vos employés, cycles de paie et paiements en toute simplicité.",
+        "subtitle": "L'excellence opérationnelle à portée de main"
+      }
+    ],
+    "benefits": [
+      {
+        "id": "benefits-1",
+        "title": "Pourquoi nous choisir ?",
+        "subtitle": "L'excellence technologique au service de votre entreprise",
+        "benefitTitle": "Gestion Automatisée",
+        "benefitDesc": "Automatisez vos processus RH et concentrez-vous sur votre cœur de métier"
+      },
+      {
+        "id": "benefits-2",
+        "benefitTitle": "Sécurité Renforcée",
+        "benefitDesc": "Protection avancée des données sensibles avec chiffrement de bout en bout"
+      },
+      {
+        "id": "benefits-3",
+        "benefitTitle": "Support 24/7",
+        "benefitDesc": "Équipe dédiée disponible pour vous accompagner dans votre transformation digitale"
+      }
+    ],
+    "stats": [
+      {
+        "id": "stats-1",
+        "title": "Chiffres qui parlent",
+        "subtitle": "La confiance de centaines d'entreprises",
+        "statValue": "500+",
+        "statLabel": "Entreprises clientes"
+      },
+      {
+        "id": "stats-2",
+        "statValue": "50K+",
+        "statLabel": "Salaires traités"
+      },
+      {
+        "id": "stats-3",
+        "statValue": "99.9%",
+        "statLabel": "Disponibilité"
+      },
+      {
+        "id": "stats-4",
+        "statValue": "24/7",
+        "statLabel": "Support technique"
+      }
+    ],
+    "cta": [
+      {
+        "id": "cta-1",
+        "title": "Prêt à digitaliser vos RH ?",
+        "subtitle": "Rejoignez l'élite des entreprises modernes qui ont choisi l'excellence opérationnelle"
+      }
+    ]
+  },
+  "companies": [
+    {
+      "id": "cmirisami0000mo29gziz7l76",
+      "nom": "Sonatel SA",
+      "adresse": "Dakar, Sénégal",
+      "email": "contact@sonatel.sn",
+      "telephone": "+221 33 839 00 00",
+      "devise": "XOF",
+      "typePeriode": "mensuelle",
+      "createdAt": "2025-12-04T14:17:17.852Z"
+    },
+    {
+      "id": "cmirisami0001mo29gziz7l77",
+      "nom": "Banque Atlantique Sénégal",
+      "adresse": "Dakar, Sénégal",
+      "email": "contact@banqueatlantique.sn",
+      "telephone": "+221 33 839 10 00",
+      "devise": "XOF",
+      "typePeriode": "mensuelle",
+      "createdAt": "2025-12-04T14:17:17.852Z"
+    },
+    {
+      "id": "cmirisami0002mo29gziz7l78",
+      "nom": "Teyliom Group",
+      "adresse": "Dakar, Sénégal",
+      "email": "contact@teyliom.sn",
+      "telephone": "+221 33 839 20 00",
+      "devise": "XOF",
+      "typePeriode": "mensuelle",
+      "createdAt": "2025-12-04T14:17:17.852Z"
+    },
+    {
+      "id": "cmirisami0003mo29gziz7l79",
+      "nom": "Senelec",
+      "adresse": "Dakar, Sénégal",
+      "email": "contact@senelec.sn",
+      "telephone": "+221 33 839 30 00",
+      "devise": "XOF",
+      "typePeriode": "mensuelle",
+      "createdAt": "2025-12-04T14:17:17.852Z"
+    },
+    {
+      "id": "cmirisami0004mo29gziz7l80",
+      "nom": "Orange Sénégal",
+      "adresse": "Dakar, Sénégal",
+      "email": "contact@orange.sn",
+      "telephone": "+221 33 839 40 00",
+      "devise": "XOF",
+      "typePeriode": "mensuelle",
+      "createdAt": "2025-12-04T14:17:17.852Z"
+    }
+  ],
+  "employees": [
+    {
+      "id": "emp-1",
+      "entrepriseId": "cmirisami0000mo29gziz7l76",
+      "nomComplet": "Fatou Ndiaye",
+      "poste": "admin",
+      "typeContrat": "CDI",
+      "salaireBase": 850000,
+      "email": "fatou.ndiaye@sonatel.sn",
+      "telephone": "+221 77 123 45 67",
+      "statut": "actif",
+      "dateEmbauche": "2024-01-15T00:00:00.000Z"
+    },
+    {
+      "id": "emp-2",
+      "entrepriseId": "cmirisami0000mo29gziz7l76",
+      "nomComplet": "Moussa Fall",
+      "poste": "caissier",
+      "typeContrat": "CDD",
+      "salaireBase": 450000,
+      "email": "moussa.fall@sonatel.sn",
+      "telephone": "+221 77 234 56 78",
+      "statut": "actif",
+      "dateEmbauche": "2024-03-01T00:00:00.000Z"
+    },
+    {
+      "id": "emp-3",
+      "entrepriseId": "cmirisami0000mo29gziz7l76",
+      "nomComplet": "Aminata Sow",
+      "poste": "employe",
+      "typeContrat": "CDI",
+      "salaireBase": 650000,
+      "email": "aminata.sow@sonatel.sn",
+      "telephone": "+221 77 345 67 89",
+      "statut": "actif",
+      "dateEmbauche": "2024-02-10T00:00:00.000Z"
+    },
+    {
+      "id": "emp-4",
+      "entrepriseId": "cmirisami0000mo29gziz7l76",
+      "nomComplet": "Ibrahima Diallo",
+      "poste": "vigile",
+      "typeContrat": "CDI",
+      "salaireBase": 350000,
+      "email": "ibrahima.diallo@sonatel.sn",
+      "telephone": "+221 77 456 78 90",
+      "statut": "actif",
+      "dateEmbauche": "2024-01-20T00:00:00.000Z"
+    }
+  ],
+  "payruns": [
+    {
+      "id": "payrun-1",
+      "entrepriseId": "cmirisami0000mo29gziz7l76",
+      "periode": "Décembre 2024",
+      "type": "mensuel",
+      "statut": "termine",
+      "dateCreation": "2024-12-01T00:00:00.000Z",
+      "dateDebut": "2024-12-01T00:00:00.000Z",
+      "dateFin": "2024-12-31T00:00:00.000Z"
+    },
+    {
+      "id": "payrun-2",
+      "entrepriseId": "cmirisami0000mo29gziz7l76",
+      "periode": "Janvier 2025",
+      "type": "mensuel",
+      "statut": "en_cours",
+      "dateCreation": "2025-01-01T00:00:00.000Z",
+      "dateDebut": "2025-01-01T00:00:00.000Z",
+      "dateFin": "2025-01-31T00:00:00.000Z"
+    }
+  ],
+  "payslips": [
+    {
+      "id": "payslip-1",
+      "payRunId": "payrun-1",
+      "employeId": "emp-1",
+      "salaireBrut": 850000,
+      "deductions": 85000,
+      "salaireNet": 765000,
+      "statut": "paye",
+      "dateGen": "2024-12-31T00:00:00.000Z",
+      "employe": {
+        "nomComplet": "Fatou Ndiaye",
+        "poste": "admin"
+      }
+    },
+    {
+      "id": "payslip-2",
+      "payRunId": "payrun-1",
+      "employeId": "emp-2",
+      "salaireBrut": 450000,
+      "deductions": 45000,
+      "salaireNet": 405000,
+      "statut": "paye",
+      "dateGen": "2024-12-31T00:00:00.000Z",
+      "employe": {
+        "nomComplet": "Moussa Fall",
+        "poste": "caissier"
+      }
+    },
+    {
+      "id": "payslip-3",
+      "payRunId": "payrun-1",
+      "employeId": "emp-3",
+      "salaireBrut": 650000,
+      "deductions": 65000,
+      "salaireNet": 585000,
+      "statut": "paye",
+      "dateGen": "2024-12-31T00:00:00.000Z",
+      "employe": {
+        "nomComplet": "Aminata Sow",
+        "poste": "employe"
+      }
+    },
+    {
+      "id": "payslip-4",
+      "payRunId": "payrun-1",
+      "employeId": "emp-4",
+      "salaireBrut": 350000,
+      "deductions": 35000,
+      "salaireNet": 315000,
+      "statut": "paye",
+      "dateGen": "2024-12-31T00:00:00.000Z",
+      "employe": {
+        "nomComplet": "Ibrahima Diallo",
+        "poste": "vigile"
+      }
+    }
+  ],
+  "payments": [
+    {
+      "id": "payment-1",
+      "payslipId": "payslip-1",
+      "montant": 765000,
+      "mode": "virement",
+      "datePaiement": "2024-12-31T00:00:00.000Z",
+      "statut": "effectue"
+    },
+    {
+      "id": "payment-2",
+      "payslipId": "payslip-2",
+      "montant": 405000,
+      "mode": "virement",
+      "datePaiement": "2024-12-31T00:00:00.000Z",
+      "statut": "effectue"
+    },
+    {
+      "id": "payment-3",
+      "payslipId": "payslip-3",
+      "montant": 585000,
+      "mode": "virement",
+      "datePaiement": "2024-12-31T00:00:00.000Z",
+      "statut": "effectue"
+    },
+    {
+      "id": "payment-4",
+      "payslipId": "payslip-4",
+      "montant": 315000,
+      "mode": "virement",
+      "datePaiement": "2024-12-31T00:00:00.000Z",
+      "statut": "effectue"
+    },
+    {
+      "id": "payment-5",
+      "payslipId": "payslip-1",
+      "montant": 765000,
+      "mode": "especes",
+      "datePaiement": "2025-01-15T00:00:00.000Z",
+      "statut": "en_attente"
+    }
+  ],
+  "users": [
+    {
+      "id": "user-1",
+      "entrepriseId": "cmirisami0000mo29gziz7l76",
+      "nomComplet": "Fatou Ndiaye",
+      "email": "fatou.ndiaye@sonatel.sn",
+      "telephone": "+221 77 123 45 67",
+      "role": "admin",
+      "statut": "actif"
+    },
+    {
+      "id": "user-2",
+      "entrepriseId": "cmirisami0000mo29gziz7l76",
+      "nomComplet": "Moussa Fall",
+      "email": "moussa.fall@sonatel.sn",
+      "telephone": "+221 77 234 56 78",
+      "role": "caissier",
+      "statut": "actif"
+    },
+    {
+      "id": "user-3",
+      "nomComplet": "Ramatoulaye Gueye",
+      "email": "rama.gueye@odc.sn",
+      "telephone": "+221 77 123 45 67",
+      "role": "super-admin",
+      "statut": "actif"
+    }
+  ],
+  "dashboard": {
+    "stats": {
+      "totalCompanies": 5,
+      "compliantCompanies": 5,
+      "totalRevenue": 11004000,
+      "totalSalaryMass": 9170000,
+      "totalEmployees": 14,
+      "payrunsThisMonth": 0,
+      "pendingPayments": 6
+    },
+    "frequencyEvolution": [
+      { "month": "Janvier", "frequency": 120, "year": 2024 },
+      { "month": "Février", "frequency": 135, "year": 2024 },
+      { "month": "Mars", "frequency": 142, "year": 2024 },
+      { "month": "Avril", "frequency": 158, "year": 2024 },
+      { "month": "Mai", "frequency": 167, "year": 2024 },
+      { "month": "Juin", "frequency": 173, "year": 2024 }
+    ],
+    "upcomingPayments": [
+      {
+        "id": "upcoming-1",
+        "companyName": "Sonatel SA",
+        "amount": 765000,
+        "dueDate": "2025-01-15T00:00:00.000Z",
+        "status": "pending"
+      },
+      {
+        "id": "upcoming-2",
+        "companyName": "Banque Atlantique",
+        "amount": 450000,
+        "dueDate": "2025-01-20T00:00:00.000Z",
+        "status": "pending"
+      }
+    ]
+  }
+}

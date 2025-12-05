@@ -72,7 +72,10 @@ function App() {
   return (
     <AuthProvider>
       <ThemeProvider>
-        <Router>
+        <Router future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true
+        }}>
           <AppLayout>
             <Routes>
               {/* Public Routes */}
