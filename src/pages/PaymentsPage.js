@@ -1,4 +1,4 @@
- import React, { useState, useEffect } from 'react';
+ import React, { useState, useEffect, useCallback } from 'react';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
@@ -28,7 +28,7 @@ const PaymentsPage = () => {
   const itemsPerPage = 10;
 
   // Charger les bulletins
-  const loadPayslips = async () => {
+  const loadPayslips = useCallback(async () => {
     try {
       setLoading(true);
       const response = await payslipsAPI.getAll({
@@ -44,11 +44,11 @@ const PaymentsPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, itemsPerPage]);
 
   useEffect(() => {
     loadPayslips();
-  }, [currentPage, activeTab]);
+  }, [currentPage, activeTab, loadPayslips]);
 
   // Filtrer les bulletins selon l'onglet actif et la recherche
   const filteredPayslips = payslips.filter(payslip => {

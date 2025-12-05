@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
 import Card from '../components/ui/Card';
@@ -39,7 +39,7 @@ const SettingsPage = () => {
   const [superAdminActiveTab, setSuperAdminActiveTab] = useState('general');
 
   // Charger les utilisateurs d'une entreprise spécifique
-  const loadUsers = async () => {
+  const loadUsers = useCallback(async () => {
     if ((isAdmin || isSuperAdminInCompanyMode) && user?.entrepriseId) {
       try {
         setUsersLoading(true);
@@ -55,10 +55,10 @@ const SettingsPage = () => {
         setUsersLoading(false);
       }
     }
-  };
+  }, [isAdmin, isSuperAdminInCompanyMode, user?.entrepriseId]);
 
   // Charger tous les utilisateurs du système (pour super-admin)
-  const loadAllUsers = async () => {
+  const loadAllUsers = useCallback(async () => {
     if (isSuperAdmin) {
       try {
         setUsersLoading(true);
@@ -73,7 +73,7 @@ const SettingsPage = () => {
         setUsersLoading(false);
       }
     }
-  };
+  }, [isSuperAdmin]);
 
   // Charger les paramètres actuels et les infos de l'entreprise
   useEffect(() => {

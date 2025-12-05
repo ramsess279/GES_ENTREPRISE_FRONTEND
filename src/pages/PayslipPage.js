@@ -6,7 +6,6 @@ import Select from '../components/ui/Select';
 import { payslipsAPI, payrunsAPI, paymentsAPI } from '../utils/api';
 import {
   DocumentTextIcon,
-  PencilIcon,
   EyeIcon,
   ChevronRightIcon,
   DocumentArrowDownIcon,
@@ -66,7 +65,7 @@ const PayslipPage = () => {
   }, [selectedPayrunId, currentPage, itemsPerPage]);
 
   // Charger les cycles de paie pour filtrer
-  const loadPayruns = async () => {
+  const loadPayruns = useCallback(async () => {
     try {
       const response = await payrunsAPI.getAll();
       // response.data is an object with data property containing array
@@ -75,11 +74,11 @@ const PayslipPage = () => {
       setPayruns(validatedPayruns);
     } catch (error) {
     }
-  };
+  }, []);
 
   useEffect(() => {
     loadPayruns();
-  }, []);
+  }, [loadPayruns]);
 
   // Cycles are collapsed by default
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
@@ -19,6 +19,50 @@ const PublicAttendancePage = () => {
   const [todayAttendance, setTodayAttendance] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+
+  // Traiter le QR code scanné
+  const handleQRScan = useCallback((autoScan = false) => {
+    if (!scannedQR.trim()) {
+      if (!autoScan) {
+        setErrorMessage('Veuillez entrer le code QR scanné');
+      }
+      return;
+    }
+
+    try {
+      const qrData = JSON.parse(atob(scannedQR.trim()));
+
+      // Vérifier l'expiration
+      if (Date.now() > qrData.timestamp + (qrData.type === 'company_checkin' ? 60 * 60 * 1000 : 15 * 60 * 1000)) {
+        setErrorMessage('Ce QR code a expiré');
+        return;
+      }
+
+      // QR code entreprise (sélection employé)
+      if (qrData.type === 'company_checkin' && qrData.entrepriseId) {
+        setSelectedCompany(qrData.entrepriseId);
+        loadEmployees(qrData.entrepriseId);
+        setStep('select');
+        // Si c'est un scan automatique, on ne montre pas de message d'erreur
+        if (!autoScan) {
+          setSuccessMessage('QR code validé ! Veuillez sélectionner votre nom.');
+        }
+      }
+      // QR code employé (pointage direct)
+      else if (qrData.type === 'checkin' && qrData.employeId) {
+        // Pour les QR employés, on fait le pointage immédiatement
+        validateEmployeeQR(scannedQR.trim());
+      } else {
+        if (!autoScan) {
+          setErrorMessage('QR code invalide');
+        }
+      }
+    } catch (error) {
+      if (!autoScan) {
+        setErrorMessage('QR code invalide');
+      }
+    }
+  }, [scannedQR]);
 
   // Charger la liste des entreprises
   useEffect(() => {
@@ -95,8 +139,9 @@ const PublicAttendancePage = () => {
     if (!selectedEmployee) return;
 
     try {
-      const response = await attendanceAPI.getTodayAttendance(selectedEmployee);
-      setTodayAttendance(response.data.data || []);
+      await attendanceAPI.getTodayAttendance(selectedEmployee).then(response => {
+        setTodayAttendance(response.data.data || []);
+      });
     } catch (error) {
     }
   };
@@ -180,49 +225,6 @@ const PublicAttendancePage = () => {
     }
   };
 
-  // Traiter le QR code scanné
-  const handleQRScan = (autoScan = false) => {
-    if (!scannedQR.trim()) {
-      if (!autoScan) {
-        setErrorMessage('Veuillez entrer le code QR scanné');
-      }
-      return;
-    }
-
-    try {
-      const qrData = JSON.parse(atob(scannedQR.trim()));
-
-      // Vérifier l'expiration
-      if (Date.now() > qrData.timestamp + (qrData.type === 'company_checkin' ? 60 * 60 * 1000 : 15 * 60 * 1000)) {
-        setErrorMessage('Ce QR code a expiré');
-        return;
-      }
-
-      // QR code entreprise (sélection employé)
-      if (qrData.type === 'company_checkin' && qrData.entrepriseId) {
-        setSelectedCompany(qrData.entrepriseId);
-        loadEmployees(qrData.entrepriseId);
-        setStep('select');
-        // Si c'est un scan automatique, on ne montre pas de message d'erreur
-        if (!autoScan) {
-          setSuccessMessage('QR code validé ! Veuillez sélectionner votre nom.');
-        }
-      }
-      // QR code employé (pointage direct)
-      else if (qrData.type === 'checkin' && qrData.employeId) {
-        // Pour les QR employés, on fait le pointage immédiatement
-        validateEmployeeQR(scannedQR.trim());
-      } else {
-        if (!autoScan) {
-          setErrorMessage('QR code invalide');
-        }
-      }
-    } catch (error) {
-      if (!autoScan) {
-        setErrorMessage('QR code invalide');
-      }
-    }
-  };
 
   // Fonction séparée pour valider les QR employés
   const validateEmployeeQR = async (qrCode) => {
