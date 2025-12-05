@@ -132,10 +132,6 @@ const DashboardPage = () => {
     { name: 'À régulariser', value: stats.totalCompanies - stats.compliantCompanies, color: '#ef4444' },
   ];
 
-  const paymentStatusData = [
-    { name: 'Payé', paid: 8750000, pending: 0 },
-    { name: 'En attente', paid: 0, pending: 3750000 },
-  ];
 
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('fr-FR', {

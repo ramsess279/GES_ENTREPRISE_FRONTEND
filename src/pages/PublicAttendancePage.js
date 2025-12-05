@@ -20,6 +20,23 @@ const PublicAttendancePage = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
+  // Fonction séparée pour valider les QR employés
+  const validateEmployeeQR = useCallback(async (qrCode) => {
+    setLoading(true);
+    setErrorMessage('');
+    try {
+      await attendanceAPI.validateQRCode(qrCode, currentLocation);
+      setSuccessMessage('Pointage réussi !');
+      // Pour les QR employés, on peut rester sur la page ou rediriger
+      setStep('success');
+    } catch (error) {
+      const errorMessage = error.response?.data?.error || 'Erreur lors de la validation du QR code';
+      setErrorMessage(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  }, [currentLocation]);
+
   // Traiter le QR code scanné
   const handleQRScan = useCallback((autoScan = false) => {
     if (!scannedQR.trim()) {
@@ -210,14 +227,15 @@ const PublicAttendancePage = () => {
         return;
       }
 
-      const response = await attendanceAPI.validateQRCode(qrCode, currentLocation);
-      if (response.data.success) {
-        setSuccessMessage('Pointage QR réussi !');
-        loadTodayAttendance();
-        setQrCode(null); // Reset QR
-      } else {
-        setErrorMessage('Erreur validation QR');
-      }
+      await attendanceAPI.validateQRCode(qrCode, currentLocation).then(response => {
+        if (response.data.success) {
+          setSuccessMessage('Pointage QR réussi !');
+          loadTodayAttendance();
+          setQrCode(null); // Reset QR
+        } else {
+          setErrorMessage('Erreur validation QR');
+        }
+      });
     } catch (error) {
       const errorMessage = error.response?.data?.error || 'Erreur lors de la validation du QR code';
       setErrorMessage(errorMessage);
@@ -227,22 +245,6 @@ const PublicAttendancePage = () => {
   };
 
 
-  // Fonction séparée pour valider les QR employés
-  const validateEmployeeQR = async (qrCode) => {
-    setLoading(true);
-    setErrorMessage('');
-    try {
-      await attendanceAPI.validateQRCode(qrCode, currentLocation);
-      setSuccessMessage('Pointage réussi !');
-      // Pour les QR employés, on peut rester sur la page ou rediriger
-      setStep('success');
-    } catch (error) {
-      const errorMessage = error.response?.data?.error || 'Erreur lors de la validation du QR code';
-      setErrorMessage(errorMessage);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const selectedEmployeeData = employees.find(emp => emp.id === selectedEmployee);
 
