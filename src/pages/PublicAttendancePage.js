@@ -62,7 +62,7 @@ const PublicAttendancePage = () => {
         setErrorMessage('QR code invalide');
       }
     }
-  }, [scannedQR]);
+  }, [scannedQR, validateEmployeeQR]);
 
   // Charger la liste des entreprises
   useEffect(() => {
@@ -184,9 +184,10 @@ const PublicAttendancePage = () => {
   // Générer QR Code
   const generateQRCode = async () => {
     try {
-      const response = await attendanceAPI.generateQRCode(selectedEmployee);
-      setQrCode(response.data.data.qrCode);
-      setSuccessMessage('QR code généré');
+      await attendanceAPI.generateQRCode(selectedEmployee).then(response => {
+        setQrCode(response.data.data.qrCode);
+        setSuccessMessage('QR code généré');
+      });
     } catch (error) {
       setErrorMessage('Erreur lors de la génération du QR code');
     }

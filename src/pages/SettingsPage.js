@@ -4,12 +4,12 @@ import { useTheme } from '../contexts/ThemeContext';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
-import { Cog6ToothIcon, SwatchIcon, SunIcon, MoonIcon, UserIcon, BuildingOfficeIcon, UsersIcon, EyeIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Cog6ToothIcon, SwatchIcon, UserIcon, BuildingOfficeIcon, UsersIcon, EyeIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { companiesAPI, authAPI, usersAPI } from '../utils/api';
 
 const SettingsPage = () => {
   const { user, isSuperAdmin, isAdmin, isSuperAdminInCompanyMode, companyColor, updateCompanyColor } = useAuth();
-  const { theme, toggleTheme, updateColors, primaryColor, secondaryColor } = useTheme();
+  const { updateColors, primaryColor, secondaryColor } = useTheme();
   const [settings, setSettings] = useState({
     primaryColor: '#FF6B35',
     secondaryColor: '#6b7280',

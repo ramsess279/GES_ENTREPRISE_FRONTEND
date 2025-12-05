@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 import Select from '../components/ui/Select';
-import { payrunsAPI, payslipsAPI, companiesAPI } from '../utils/api';
+import { payrunsAPI, companiesAPI } from '../utils/api';
 import { useAuth } from '../contexts/AuthContext';
 import {
   DocumentTextIcon,
   PlusIcon,
-  PlayIcon,
   CheckCircleIcon,
   ClockIcon,
   ChevronLeftIcon,
@@ -18,7 +17,7 @@ import {
 } from '@heroicons/react/24/outline';
 
 const PayRunsPage = () => {
-  const { isSuperAdmin, isSuperAdminInCompanyMode, user } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [payruns, setPayruns] = useState([]);
   const [companies, setCompanies] = useState([]);
@@ -39,7 +38,7 @@ const PayRunsPage = () => {
   const itemsPerPage = 10;
 
   // Charger les cycles de paie
-  const loadPayruns = async () => {
+  const loadPayruns = useCallback(async () => {
     try {
       setLoading(true);
       const response = await payrunsAPI.getAll({
@@ -53,7 +52,7 @@ const PayRunsPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, itemsPerPage]);
 
   // Charger les entreprises
   const loadCompanies = async () => {
@@ -67,7 +66,7 @@ const PayRunsPage = () => {
   useEffect(() => {
     loadPayruns();
     loadCompanies();
-  }, [currentPage]);
+  }, [currentPage, loadPayruns]);
 
   // Gestion du formulaire
   const handleInputChange = (e) => {
@@ -78,7 +77,7 @@ const PayRunsPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await payrunsAPI.create(formData);
+      await payrunsAPI.create(formData);
       setShowModal(false);
       resetForm();
       loadPayruns();

@@ -10,7 +10,6 @@ import { useAuth } from '../contexts/AuthContext';
 const PayRunDetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user } = useAuth();
   const [payrun, setPayrun] = useState(null);
   const [payslips, setPayslips] = useState([]);
   const [loading, setLoading] = useState(true);
