@@ -30,8 +30,8 @@ const PublicAttendancePage = () => {
       // Pour les QR employés, on peut rester sur la page ou rediriger
       setStep('success');
     } catch (error) {
-      const errorMessage = error.response?.data?.error || 'Erreur lors de la validation du QR code';
-      setErrorMessage(errorMessage);
+      const errorMsg = error.response?.data?.error || 'Erreur lors de la validation du QR code';
+      setErrorMessage(errorMsg);
     } finally {
       setLoading(false);
     }

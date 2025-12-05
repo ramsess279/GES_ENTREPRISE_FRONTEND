@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { useAuth } from './AuthContext';
 
 const ThemeContext = createContext();
@@ -20,10 +20,10 @@ export const ThemeProvider = ({ children }) => {
   const currentPrimaryColor = companyColor || primaryColor;
 
   // Clé de stockage basée sur l'utilisateur ou l'entreprise
-  const getStorageKey = (key) => {
+  const getStorageKey = useCallback((key) => {
     const context = user?.entrepriseId || user?.id || 'global';
     return `${key}_${context}`;
-  };
+  }, [user?.entrepriseId, user?.id]);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem(getStorageKey('theme'));

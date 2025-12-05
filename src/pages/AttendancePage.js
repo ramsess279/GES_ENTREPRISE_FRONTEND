@@ -114,7 +114,7 @@ const AttendancePage = () => {
     setLoading(true);
     setErrorMessage(''); // Clear any previous error
     try {
-      const response = await attendanceAPI.checkIn({
+      await attendanceAPI.checkIn({
         employeId: selectedEmployee,
         type: 'entree',
         method: 'manual',
