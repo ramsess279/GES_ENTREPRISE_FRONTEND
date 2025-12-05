@@ -113,7 +113,7 @@ const SettingsPage = () => {
     };
 
     loadData();
-  }, [theme, primaryColor, companyColor, isAdmin, user?.entrepriseId, isSuperAdminInCompanyMode]);
+  }, [theme, primaryColor, companyColor, isAdmin, user?.entrepriseId, isSuperAdminInCompanyMode, isSuperAdmin, loadAllUsers, loadUsers, secondaryColor]);
 
   const handleColorChange = (colorType, value) => {
     setSettings(prev => ({

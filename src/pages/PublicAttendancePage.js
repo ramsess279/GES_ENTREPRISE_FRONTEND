@@ -4,10 +4,9 @@ import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 import Select from '../components/ui/Select';
 import { attendanceAPI } from '../utils/api';
-import { MapPinIcon, QrCodeIcon, ClockIcon, CheckCircleIcon, UserIcon, BuildingOfficeIcon } from '@heroicons/react/24/outline';
+import { MapPinIcon, QrCodeIcon, ClockIcon, CheckCircleIcon, UserIcon } from '@heroicons/react/24/outline';
 
 const PublicAttendancePage = () => {
-  const [companies, setCompanies] = useState([]);
   const [employees, setEmployees] = useState([]);
   const [selectedCompany, setSelectedCompany] = useState('');
   const [selectedEmployee, setSelectedEmployee] = useState('');
@@ -23,7 +22,6 @@ const PublicAttendancePage = () => {
 
   // Charger la liste des entreprises
   useEffect(() => {
-    loadCompanies();
     getCurrentLocation();
 
     // Vérifier si des données QR sont passées dans l'URL
@@ -34,16 +32,7 @@ const PublicAttendancePage = () => {
       // Traiter immédiatement le QR sans setTimeout
       handleQRScan(true);
     }
-  }, []);
-
-  const loadCompanies = async () => {
-    try {
-      const response = await fetch('/api/entreprises/public');
-      const data = await response.json();
-      setCompanies(data.data || []);
-    } catch (error) {
-    }
-  };
+  }, [handleQRScan]);
 
   const loadEmployees = async (companyId) => {
     if (!companyId) {
@@ -112,14 +101,6 @@ const PublicAttendancePage = () => {
     }
   };
 
-  // Charger les pointages du jour pour un employé spécifique
-  const loadTodayAttendanceForEmployee = async (employeId) => {
-    try {
-      const response = await attendanceAPI.getTodayAttendance(employeId);
-      setTodayAttendance(response.data.data || []);
-    } catch (error) {
-    }
-  };
 
   // Pointage GPS
   const handleGPSCheckIn = async () => {
@@ -248,26 +229,15 @@ const PublicAttendancePage = () => {
     setLoading(true);
     setErrorMessage('');
     try {
-      const response = await attendanceAPI.validateQRCode(qrCode, currentLocation);
-      if (response.data.success) {
-        setSuccessMessage('Pointage réussi !');
-        // Pour les QR employés, on peut rester sur la page ou rediriger
-        setStep('success');
-      } else {
-        setErrorMessage(response.data.error || 'Erreur lors du pointage');
-      }
+      await attendanceAPI.validateQRCode(qrCode, currentLocation);
+      setSuccessMessage('Pointage réussi !');
+      // Pour les QR employés, on peut rester sur la page ou rediriger
+      setStep('success');
     } catch (error) {
       const errorMessage = error.response?.data?.error || 'Erreur lors de la validation du QR code';
       setErrorMessage(errorMessage);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleCompanySelect = () => {
-    if (selectedCompany) {
-      loadEmployees(selectedCompany);
-      setStep('select');
     }
   };
 

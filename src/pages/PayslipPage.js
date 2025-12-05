@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
@@ -8,9 +8,6 @@ import {
   DocumentTextIcon,
   PencilIcon,
   EyeIcon,
-  CheckCircleIcon,
-  CurrencyDollarIcon,
-  ChevronDownIcon,
   ChevronRightIcon,
   DocumentArrowDownIcon,
 } from '@heroicons/react/24/outline';
@@ -20,7 +17,6 @@ const PayslipPage = () => {
   const [payruns, setPayruns] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
   const [activeTab, setActiveTab] = useState('pending'); // 'pending' or 'paid'
   const [showModal, setShowModal] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
@@ -45,7 +41,7 @@ const PayslipPage = () => {
   const itemsPerPage = 10;
 
   // Charger les bulletins de paie
-  const loadPayslips = async () => {
+  const loadPayslips = useCallback(async () => {
     try {
       setLoading(true);
       let response;
@@ -54,7 +50,6 @@ const PayslipPage = () => {
         // Charger les bulletins d'un cycle spécifique
         response = await payslipsAPI.getByPayrun(selectedPayrunId);
         setPayslips(response.data.data || []);
-        setTotalPages(1); // Pas de pagination pour un cycle spécifique
       } else {
         // Charger tous les bulletins des cycles validés avec pagination
         response = await payslipsAPI.getAll({
@@ -62,14 +57,13 @@ const PayslipPage = () => {
           limit: itemsPerPage,
         });
         setPayslips(response.data.data || []);
-        setTotalPages(Math.ceil((response.data.total || 0) / itemsPerPage));
       }
     } catch (error) {
       setPayslips([]);
     } finally {
       setLoading(false);
     }
-  };
+  }, [selectedPayrunId, currentPage, itemsPerPage]);
 
   // Charger les cycles de paie pour filtrer
   const loadPayruns = async () => {
@@ -95,7 +89,7 @@ const PayslipPage = () => {
 
   useEffect(() => {
     loadPayslips();
-  }, [currentPage, activeTab, selectedPayrunId]);
+  }, [currentPage, activeTab, selectedPayrunId, loadPayslips]);
 
   // Gestion du formulaire
   const handleInputChange = (e) => {
@@ -121,38 +115,6 @@ const PayslipPage = () => {
     });
   };
 
-  const handleEdit = (payslip) => {
-    setEditingPayslip(payslip);
-    setFormData({
-      salaireBrut: payslip.salaireBrut || '',
-      deductions: payslip.deductions || '',
-      nombreJour: payslip.nombreJour || '',
-      nombreHeure: payslip.nombreHeure || '',
-    });
-    setShowModal(true);
-  };
-
-  const handleValidatePayslip = async (payslip) => {
-    if (window.confirm(`Êtes-vous sûr de vouloir valider le bulletin de ${payslip.employe?.nomComplet} ?`)) {
-      try {
-        await payslipsAPI.update(payslip.id, { statut: 'validé' });
-        loadPayslips();
-        alert('Bulletin validé avec succès');
-      } catch (error) {
-        console.error('Erreur lors de la validation:', error);
-        alert('Erreur lors de la validation du bulletin');
-      }
-    }
-  };
-
-  const handlePayment = (payslip) => {
-    setSelectedPayslip(payslip);
-    setPaymentForm({
-      montant: payslip.salaireNet?.toString() || '',
-      mode: 'virement',
-    });
-    setShowPaymentModal(true);
-  };
 
   const handleSubmitPayment = async (e) => {
     e.preventDefault();
