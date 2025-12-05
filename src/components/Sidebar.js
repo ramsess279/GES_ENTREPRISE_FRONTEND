@@ -21,7 +21,7 @@ import { clsx } from 'clsx';
 const Sidebar = () => {
   const { logout, user, isSuperAdmin, isAdmin, isCaissier, isSuperAdminInCompanyMode, switchBackToSuperAdmin } = useAuth();
   const isVigile = user?.role === 'vigile';
-  const { theme, toggleTheme, updateColors, primaryColor, secondaryColor } = useTheme();
+  const { theme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
   const [isExpanded, setIsExpanded] = useState(true);

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
-import Select from '../components/ui/Select';
 import { attendanceAPI, employeesAPI } from '../utils/api';
 import { useAuth } from '../contexts/AuthContext';
 import { ClockIcon, CheckCircleIcon, UserIcon, MagnifyingGlassIcon, UserPlusIcon, DocumentChartBarIcon, CalendarDaysIcon, ArrowDownTrayIcon, QrCodeIcon } from '@heroicons/react/24/outline';
@@ -12,7 +11,6 @@ const AttendancePage = () => {
   const { user } = useAuth();
   const [employees, setEmployees] = useState([]);
   const [filteredEmployees, setFilteredEmployees] = useState([]);
-  const [loadingEmployees, setLoadingEmployees] = useState(true);
   const [selectedEmployee, setSelectedEmployee] = useState('');
   const [employeeName, setEmployeeName] = useState('');
   const [pinCode, setPinCode] = useState('');
@@ -33,12 +31,10 @@ const AttendancePage = () => {
   const loadEmployees = useCallback(async () => {
     if (!user?.entrepriseId) {
       setEmployees([]);
-      setLoadingEmployees(false);
       return;
     }
 
     try {
-      setLoadingEmployees(true);
       const response = await employeesAPI.getAll({
         entrepriseId: user.entrepriseId,
         status: 'actif'
@@ -47,8 +43,6 @@ const AttendancePage = () => {
       setEmployees(Array.isArray(employeeData) ? employeeData : []);
     } catch (error) {
       setEmployees([]);
-    } finally {
-      setLoadingEmployees(false);
     }
   }, [user?.entrepriseId]);
 

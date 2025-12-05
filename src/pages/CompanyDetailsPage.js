@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
-import { ArrowLeftIcon, PencilIcon, TrashIcon, CheckIcon, XMarkIcon, UserIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, PencilIcon, TrashIcon, CheckIcon, UserIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { companiesAPI, usersAPI } from '../utils/api';
 import { useAuth } from '../contexts/AuthContext';
 

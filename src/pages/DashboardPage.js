@@ -122,7 +122,7 @@ const DashboardPage = () => {
     };
 
     fetchDashboardData();
-  }, [isCompanyUser, user?.role]);
+  }, [isCompanyUser, user?.role, user?.entrepriseId]);
 
   // Données pour les graphiques
   const frequencyEvolutionData = stats.frequencyEvolution;

@@ -40,12 +40,12 @@ export const ThemeProvider = ({ children }) => {
     if (savedSecondaryColor) {
       setSecondaryColor(savedSecondaryColor);
     }
-  }, [user?.entrepriseId, user?.id]);
+  }, [user?.entrepriseId, user?.id, getStorageKey]);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
     localStorage.setItem(getStorageKey('theme'), theme);
-  }, [theme, user?.entrepriseId, user?.id]);
+  }, [theme, user?.entrepriseId, user?.id, getStorageKey]);
 
   useEffect(() => {
     // Update CSS custom properties for dynamic colors
@@ -53,7 +53,7 @@ export const ThemeProvider = ({ children }) => {
     document.documentElement.style.setProperty('--color-secondary', secondaryColor);
     localStorage.setItem(getStorageKey('primaryColor'), primaryColor);
     localStorage.setItem(getStorageKey('secondaryColor'), secondaryColor);
-  }, [currentPrimaryColor, secondaryColor, primaryColor, companyColor, user?.entrepriseId, user?.id]);
+  }, [currentPrimaryColor, secondaryColor, primaryColor, companyColor, user?.entrepriseId, user?.id, getStorageKey]);
 
   const toggleTheme = () => {
     setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');

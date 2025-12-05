@@ -4,13 +4,12 @@ import { useAuth } from '../contexts/AuthContext';
 import { companiesAPI } from '../utils/api';
 import {
   ArrowRightOnRectangleIcon,
-  UserCircleIcon,
-  ArrowLeftIcon
+  UserCircleIcon
 } from '@heroicons/react/24/outline';
 import Button from './ui/Button';
 
 const Navbar = () => {
-  const { user, logout, isSuperAdminInCompanyMode, switchBackToSuperAdmin, isAdmin, companyColor } = useAuth();
+  const { user, logout, isAdmin } = useAuth();
   const navigate = useNavigate();
   const [companyInfo, setCompanyInfo] = useState(null);
 
@@ -36,20 +35,6 @@ const Navbar = () => {
     fetchCompanyInfo();
   }, [isAdmin, user?.entrepriseId]);
 
-  const handleSwitchBack = async () => {
-    try {
-      const result = await switchBackToSuperAdmin();
-      if (result.success) {
-        // Rediriger vers le dashboard super-admin
-        navigate('/dashboard');
-      } else {
-        alert(`Erreur: ${result.error}`);
-      }
-    } catch (error) {
-      console.error('Erreur lors du retour au mode super-admin:', error);
-      alert('Erreur lors du retour au mode super-admin');
-    }
-  };
 
 
   return (
