@@ -181,7 +181,7 @@ const PublicAttendancePage = () => {
         return;
       }
 
-      const response = await attendanceAPI.checkIn({
+      await attendanceAPI.checkIn({
         employeId: selectedEmployee,
         type: 'entree',
         method: 'gps',
